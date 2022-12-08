@@ -1,0 +1,30 @@
+<div class="groupStore" >
+    <h3> STORE </h3>
+    <br>
+    <table>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Toxicity
+            </th>
+            <th>
+                Quantity
+            </th>
+        </tr>
+        <tr *ngFor="let m of mushrooms$ | async" >
+            <th>{{ m.name }}</th>
+            <th>{{ m.toxicity }}</th>
+            <th> {{ m.quantity }}</th>
+            <th> <button (click)="delMushroom(m)"> DELETE </button> 
+                <a class="detailsBtnView" [routerLink]="['/catalogue/', m.id]"> Details </a>
+            </th>
+        </tr>
+
+
+    </table>
+    <br>
+    <a class="detailsBtn" [routerLink]="['/catalogue']"> Back </a>
+
+</div>

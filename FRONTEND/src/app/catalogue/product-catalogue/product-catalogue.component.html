@@ -1,0 +1,47 @@
+<div class="listCatalogue">
+
+  <div class="groupFilter">
+
+    <h3>Filter :</h3>
+
+    <form [formGroup]="formSearchText">
+      <label>Name : <input type="text" formControlName="nameFilter" (keydown)="doFilterMushroomName()"  />
+      </label>
+    </form>
+
+    <form [formGroup]="formChoiceEdible">
+      <label>Edible : <select formControlName="edibleFilter" (change)="doFilterMushroomEdible()">
+          <option> All </option>
+          <option> Yes </option>
+          <option> No </option>
+        </select></label>
+
+    </form>
+
+    <form [formGroup]="formChoiceToxicity">
+      <label>Toxicity : </label> <br>
+      <select formControlName="toxicityFilter" multiple size=3 (change)="doFilterDistinctToxicity()">
+        <option *ngFor="let pToxicity of uniqueData$ | async"> {{ pToxicity }} </option>
+      </select>
+    </form>
+  </div>
+
+  <div>
+    <h3> List of mushrooms :</h3>
+
+    <div *ngFor="let p of catalogue$ | async">
+      <div class="itemCatalogue">
+        <div class="imgCatalogue">
+          <img src="{{p.img}}" alt="N/A" />
+        </div>
+        <div class="infoCatalogue">
+          <p> Name : {{p.name}}</p>
+          <p> Edible : {{p.edible }}</p>
+          <p> Poisonous : {{p.poisonous }}</p>
+          <p> Toxicity : {{p.toxicity }}</p>
+          <button class="detailsBtnAdd" (click)="quickAddMushroomToStore(p)"> Quick add $ </button> <br>
+          <a class="detailsBtn" [routerLink]="['/catalogue', p.id]"> Voir détails (+) </a>
+        </div>
+      </div>
+    </div>
+  </div>

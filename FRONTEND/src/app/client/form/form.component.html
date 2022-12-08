@@ -1,0 +1,51 @@
+<div class="form-holder">
+  <div class="form-content">
+    <div class="form-items">
+      <form [formGroup]="clientForm">
+      <div class="form-informations">
+
+        <label>Lastname : <input type="text" placeholder="Lastname" formControlName="lastname" appCheckFormString />
+        </label> <br>
+        <label>Firstname : <input type="text" placeholder="Firstname" formControlName="firstname" appCheckFormString />
+        </label> <br>
+        <label>Zip code : <input type="text" placeholder="Zip code" formControlName="zipCode" appCheckFormNumber />
+        </label> <br>
+        <label>Telephone : <input type="tel" placeholder="Telephone" formControlName="tel" formControlName="tel" appCheckFormNumber /> </label>
+        <br>
+        <label>Email : <input type="email" placeholder="Email" formControlName="email" appCheckFormEmail /> </label>
+        <label>Gender : </label>
+        <div id="genderCtn">
+          <label> Male <input type="radio" name="gender" value="Male" formControlName="gender" ></label>
+          <label> Female <input type="radio" name="gender" value="Female" formControlName="gender" ></label>
+        </div>
+      </div>
+
+      <div class="form-logs">
+          <label>Login : <input type="text" placeholder="Login" formControlName="login" /> </label>
+          <label>Password : <input type="password" id="password" placeholder="Password" formControlName="password"
+            /> </label>
+          <label>Verification Password : <input type="password" id="verifPassword" formControlName="passwordCheck"
+            placeholder="Verification Password"  /> </label>
+      </div>
+      <!-- <p>Test synchro : {{ngLastname}}</p> -->
+    </form>
+
+      <div>
+        <button (click)="showSummary=true">Send</button>
+        <button (click)="createClient()">Send</button>
+
+      </div>
+
+    </div>
+
+    <ng-container *ngIf="showSummary ; showSummary">
+      <!-- <app-component-summary showSummary [lastname]="ngLastname" [firstname]="ngFirstname" [zipCode]="ngZipCode"
+        [tel]="ngTel" [email]="ngEmail" [gender]="ngGender" [login]="ngLogin" [password]="ngPassword"
+        [passwordCheck]="ngPasswordCheck" (change)="clicChange($event)">
+
+      </app-component-summary> -->
+
+    </ng-container>
+  </div>
+
+</div>

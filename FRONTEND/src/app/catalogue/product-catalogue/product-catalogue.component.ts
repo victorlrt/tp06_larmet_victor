@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Mushroom } from '../../core/model/mushroom';
 import { map } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';

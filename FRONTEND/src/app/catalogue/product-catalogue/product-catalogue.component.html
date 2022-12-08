@@ -1,5 +1,4 @@
 <div class="listCatalogue">
-
   <div class="groupFilter">
 
     <h3>Filter :</h3>
@@ -24,6 +23,8 @@
         <option *ngFor="let pToxicity of uniqueData$ | async"> {{ pToxicity }} </option>
       </select>
     </form>
+
+    <app-search></app-search>
   </div>
 
   <div>

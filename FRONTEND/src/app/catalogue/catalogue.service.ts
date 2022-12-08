@@ -12,6 +12,7 @@ export class CatalogueService {
 
   constructor(private http: HttpClient) { }
   env = environment;
+  apiUrl: string = environment.api;
 
   listProducts: Mushroom[] = [];
 
@@ -28,6 +29,12 @@ export class CatalogueService {
           (value, index, self) => self.indexOf(value) === index)));
   }
 
+  search(search: string): Observable<Mushroom[]> {
+    if(search === ''){
+      return this.getCatalogue();
+    }
+    return this.http.get<Mushroom[]>(this.apiUrl+"catalogue/search/"+search)
+  }
 
 
 }

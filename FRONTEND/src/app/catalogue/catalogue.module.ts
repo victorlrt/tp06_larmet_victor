@@ -5,6 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from  '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DetailsCatalogueComponent } from './details-catalogue/details-catalogue.component';
+import { SearchComponent } from '../search/search.component';
+import { SearchService } from '../search.service';
 
 const catalogueRoutes: Routes = [
   { path: '', component: ProductCatalogueComponent},
@@ -12,20 +14,20 @@ const catalogueRoutes: Routes = [
 
 ]
 
-
 @NgModule({
-  declarations: [
-    ProductCatalogueComponent,
-    DetailsCatalogueComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(catalogueRoutes),
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
-  providers: [DetailsCatalogueComponent]
-
+    declarations: [
+        ProductCatalogueComponent,
+        DetailsCatalogueComponent,
+        SearchComponent
+    ],
+    providers: [DetailsCatalogueComponent, SearchService],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(catalogueRoutes),
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule
+        
+    ]
 })
 export class CatalogueModule { }

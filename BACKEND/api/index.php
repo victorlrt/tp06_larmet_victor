@@ -35,7 +35,7 @@ $options = [
     "algorithm" => ["HS256"],
     "secret" => JWT_SECRET,
     "path" => ["/api"],
-    "ignore" => ["/api/hello","/api/login","/api/client"],
+    "ignore" => ["/api/hello","/api/login","/api/client","/api/catalogue/{name}"],
     "error" => function ($response, $arguments) {
         $data = array('ERREUR' => 'Connexion', 'ERREUR' => 'JWT Non valide');
         $response = $response->withStatus(401);
@@ -55,17 +55,16 @@ function  addHeaders (Response $response) : Response {
 }
 
 
-$app->get('/api/catalogue/search/{name}', function (Request $request, Response $response, $args) {
+$app->get('/api/catalogue/{name}', function (Request $request, Response $response, $args) {
     $json = file_get_contents("./db/dbMushroom.json");
     $array = json_decode($json, true);
-    $name = $args ['name'];
-    $array = array_filter($array, function($item) use ($name) {
-        if (stripos($item['name'], $name) !== false) {
-            return true;
+    $id = $args ['name'];
+    $newArray = [];
+    foreach ($array as $key => $value) {
+        if (strpos($value['name'], $id)) {
+            $newArray[] = $value;
         }
-        return false;
-    });
-    $response = addHeaders($response);
+    }
     $response->getBody()->write(json_encode ($array));
     return $response;
 });

@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from  '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DetailsCatalogueComponent } from './details-catalogue/details-catalogue.component';
-import { SearchComponent } from '../search/search.component';
 import { SearchService } from '../search.service';
 
 const catalogueRoutes: Routes = [
@@ -17,10 +16,9 @@ const catalogueRoutes: Routes = [
 @NgModule({
     declarations: [
         ProductCatalogueComponent,
-        DetailsCatalogueComponent,
-        SearchComponent
+        DetailsCatalogueComponent
     ],
-    providers: [DetailsCatalogueComponent, SearchService],
+    providers: [DetailsCatalogueComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(catalogueRoutes),

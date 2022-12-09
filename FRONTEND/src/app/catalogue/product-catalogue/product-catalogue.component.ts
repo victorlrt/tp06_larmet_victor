@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { fromEvent, Observable, of, switchMap } from 'rxjs';
 import { Mushroom } from '../../core/model/mushroom';
-import { map } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CatalogueService } from '../catalogue.service';
 import { DetailsCatalogueComponent } from '../details-catalogue/details-catalogue.component';
@@ -108,7 +108,28 @@ export class ProductCatalogueComponent implements OnInit {
 
   }
 
+  searchField$!: Observable<any>;
+  @ViewChild('search', { static: true }) input!: ElementRef;
+  model!: Observable<any>;
 
+
+  ngAfterViewInit() {
+    this.searchField$ = fromEvent(this.input.nativeElement, 'keyup');
+    this.model = this.searchField$.pipe(
+      map((event: any) => event.target.value),
+      debounceTime(1000),
+      distinctUntilChanged(),
+
+      switchMap((query: string) => this.tsCatalogue.search(query).pipe(
+        catchError(() => {
+          return of([]);
+        })
+      ))
+    );
+    this.model.subscribe((data) => {
+      this.catalogue$ = data;
+    });
+  }
 
 
 }

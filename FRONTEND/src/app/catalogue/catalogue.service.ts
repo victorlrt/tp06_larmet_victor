@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { distinct, Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Mushroom } from '../core/model/mushroom';
 import { map } from 'rxjs/internal/operators/map';
 import { environment } from 'src/environments/environment';
@@ -16,7 +16,11 @@ export class CatalogueService {
 
   listProducts: Mushroom[] = [];
 
-
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
   getCatalogue(): Observable<Mushroom[]> {
     return this.http.get<Mushroom[]>(this.env.catalogue);
@@ -33,7 +37,7 @@ export class CatalogueService {
     if(search === ''){
       return this.getCatalogue();
     }
-    return this.http.get<Mushroom[]>(this.apiUrl+"catalogue/search/"+search)
+    return this.http.get<Mushroom[]>(this.apiUrl+"catalogue/"+search, this.httpOptions)
   }
 
 
